@@ -1,62 +1,62 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/MIand_y9)
 # Homework 2 - LangChain & Document Parsing
 
-## 前言
+## Preface
 
-* 在前一個作業中，你已經學會使用提示(Prompt)來跟LLM溝通。
-* 接下來我們要來看看怎麼蒐集跟處理外部資料。
-* 在RAG(Retrieval-Augmented Generation)應用中，如何將外部資料切成適當大小的片段是重要的一個環節。
-* 在本次作業中，你將了解使用不同的分割策略(text splitter)來解析文本內容所產生的差異。
+* In the previous assignment, you have learned to use prompts to communicate with LLM.
+* Next, we will look at how to collect and process external data.
+* In RAG (Retrieval-Augmented Generation) applications, how to split external data into appropriately sized chunks is an important step.
+* In this assignment, you will understand the differences produced by using different text splitting strategies.
 
-## 作業規範
+## Assignment Requirements
 
-* 請使用 **LangChain**, **PyPDF** 套件完成這次作業。
-* 請於 **`student_assignment.py`** 中，實作裡面的兩個方法
+* Please use **LangChain** and **PyPDF** packages to complete this assignment.
+* Please implement the two methods in **`student_assignment.py`**
     * `hw02_1(q1_pdf)`
     * `hw02_2(q2_pdf)`
 
 ---
 
-### 第一題：熟悉如何從外部文件來源取得內容，並透過文本分割工具進行解析。
+### Question 1: Familiarize yourself with obtaining content from external document sources and parsing it using text splitting tools.
 
-* **說明**：將範例文件的內容切分成適當大小的的單元(chunk)
-* **文本**：你手邊有一份範例 PDF 文件 **`OpenSourceLicenses.pdf`**，內容是開源碼授權的基本介紹。
-* **任務**：
-  1. 請實作方法 `hw02_1(q1_pdf)` 來完成這個任務。
-  2. 使用 **PyPDFLoader** 套件的load()方法讀取 **`OpenSourceLicenses.pdf`** 的文本內容。
-  3. 使用 **CharacterTextSplitter** 將文本以`頁`為單位，分割為多個chunks。
-* **提示**：
-  1. 可以用 **split_text** 或是 **split_documents** 得到分割後的chunk。
-  2. 注意 **CharacterTextSplitter** 的參數配置：
+* **Description**: Split the content of the sample document into appropriately sized chunks.
+* **Text**: You have a sample PDF document **`OpenSourceLicenses.pdf`**, which is an introduction to open source licenses.
+* **Task**:
+  1. Please implement the method `hw02_1(q1_pdf)` to complete this task.
+  2. Use the **PyPDFLoader** package's load() method to read the text content of **`OpenSourceLicenses.pdf`**.
+  3. Use **CharacterTextSplitter** to split the text by `page` into multiple chunks.
+* **Hints**:
+  1. You can use **split_text** or **split_documents** to get the split chunks.
+  2. Pay attention to the parameters of **CharacterTextSplitter**:
       - chunk_overlap=0
-      - schunk_size, separator 可以用預設值，也可以自行調整
-* **預期輸出**：
-  - 請回傳最後一個chunk物件，裡面預期會包含檔名、頁數跟內文
+      - chunk_size, separator can use default values or be adjusted
+* **Expected Output**:
+  - Please return the last chunk object, which is expected to contain the file name, page number, and text content.
 
 ---
 
-### 第二題：探索不同文本分割策略對產生的資料切片的差異
+### Question 2: Explore the differences in data slices produced by different text splitting strategies
 
-* **說明**：在第一題中，我們給的文本剛好適合用一頁一頁來切分，那如果文本內容有跨頁的情況又該怎麼切分比較好呢？
-* **文本**：請使用另外一份範例 PDF 文件 **`勞動基準法.pdf`**，內容是勞基法的相關法條。
-* **任務**：
-  1. 使用 **PyPDFLoader** 套件的load()方法讀取 **`勞動基準法.pdf`** 的文本內容。
-  2. 使用 **RecursiveCharacterTextSplitter** 將文本分割為多個chunks。
-  3. 請試著將`每一章，每一條`切分成單獨的一個個chunk
-* **提示**：
-  1. 請實作方法 `hw02_2(q2_pdf)`，用於完成這個任務。
-  2. 可以用 **split_text** 或是 **split_documents** 得到分割後的chunk。
-  3. 注意 **RecursiveCharacterTextSplitter** 的配置參數：
+* **Description**: In Question 1, the text was suitable for splitting by page. What if the text content spans multiple pages? How should it be split?
+* **Text**: Please use another sample PDF document **`勞動基準法.pdf`**, which contains relevant laws of the Labor Standards Act.
+* **Task**:
+  1. Use the **PyPDFLoader** package's load() method to read the text content of **`勞動基準法.pdf`**.
+  2. Use **RecursiveCharacterTextSplitter** to split the text into multiple chunks.
+  3. Try to split `each chapter, each article` into individual chunks.
+* **Hints**:
+  1. Please implement the method `hw02_2(q2_pdf)` to complete this task.
+  2. You can use **split_text** or **split_documents** to get the split chunks.
+  3. Pay attention to the parameters of **RecursiveCharacterTextSplitter**:
       - chunk_overlap=0
-      - chunk_size, separator 可以自行調整
-* **預期輸出**：
-  - 請回傳得到的`chunks數量`，預期會是一個整數物件
-* **切分範例**：
-  - 以第一頁為例，預期會是這樣切分
+      - chunk_size, separator can be adjusted
+* **Expected Output**:
+  - Please return the `number of chunks` obtained, which is expected to be an integer.
+* **Splitting Example**:
+  - For the first page, it is expected to be split like this:
   - ![Alt text](./chunks_example.png "Optional title")
 
 ---
 
-## 參考來源
-- [第一題](https://python.langchain.com/api_reference/text_splitters/character/langchain_text_splitters.character.CharacterTextSplitter.html)
-- [第二題](https://python.langchain.com/api_reference/text_splitters/character/langchain_text_splitters.character.RecursiveCharacterTextSplitter.html)
+## References
+- [Question 1](https://python.langchain.com/api_reference/text_splitters/character/langchain_text_splitters.character.CharacterTextSplitter.html)
+- [Question 2](https://python.langchain.com/api_reference/text_splitters/character/langchain_text_splitters.character.RecursiveCharacterTextSplitter.html)
