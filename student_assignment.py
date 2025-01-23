@@ -70,4 +70,4 @@ def hw02_2(q2_pdf):
 
 # Testing
 # print(hw02_1(q1_pdf))
-print(hw02_2(q2_pdf))
+# print(hw02_2(q2_pdf))
