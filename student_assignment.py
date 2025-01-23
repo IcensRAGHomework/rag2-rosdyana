@@ -27,11 +27,8 @@ def hw02_2(q2_pdf):
     loader = PyPDFLoader(q2_pdf)
     documents = loader.load()
 
-    # Initialize CharacterTextSplitter with chunk_overlap=0
-    text_splitter = CharacterTextSplitter(chunk_overlap=0)
-
-    # Split PDF by page
-    split_documents = text_splitter.split_documents(documents)
+    # Join all text from all pages
+    full_text = "".join([doc.page_content for doc in documents])
 
     # Generate separators list
     numbers_in_chinese = [
@@ -61,14 +58,10 @@ def hw02_2(q2_pdf):
         chunk_overlap=0, chunk_size=5, separators=separators
     )
 
-    # Iterate over all pages and count the number of chunks
-    total_split_chunks = 0
-    for doc in split_documents:
-        text = doc.page_content
-        split_chunks = recursive_splitter.split_text(text)
-        total_split_chunks += len(split_chunks)
+    # Split the full text
+    split_chunks = recursive_splitter.split_text(full_text)
 
-    return total_split_chunks
+    return len(split_chunks)
 
 
 # Testing
