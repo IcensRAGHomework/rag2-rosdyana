@@ -48,7 +48,7 @@ def hw02_2(q2_pdf):
     separators = [f"第 {i} 章" for i in numbers_in_chinese]
     for i in range(1, 90):
         separators.append(f"第 {i} 條")
-        if i in [10, 17, 22, 30, 32, 63, 79, 80, 84]:
+        if i in [9, 10, 15, 17, 22, 30, 32, 63, 79, 80, 84]:
             separators.append(f"第 {i}-1 條")
             if i == 84:
                 separators.append(f"第 {i}-2 條")
@@ -61,9 +61,13 @@ def hw02_2(q2_pdf):
     # Split the full text
     split_chunks = recursive_splitter.split_text(full_text)
 
+    # Debugging
+    # for i, chunk in enumerate(split_chunks):
+    #     print(f"=> Chunk # {i + 1}\n=> Length: {len(chunk)}\n\n {chunk}\n")
+
     return len(split_chunks)
 
 
 # Testing
 # print(hw02_1(q1_pdf))
-# print(hw02_2(q2_pdf))
+print(hw02_2(q2_pdf))
