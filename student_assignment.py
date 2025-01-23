@@ -56,10 +56,7 @@ def hw02_2(q2_pdf):
         "十九",
     ]
     separators = [f"第 {i} 章" for i in numbers_in_chinese]
-    separators.extend(
-        [f"第 {i} 條" for i in range(1, 90)]
-        + [f"第 {i}-{j} 條" for i in range(1, 90) for j in range(1, 5)]
-    )
+    separators.extend([f"第 {i} 條" for i in range(1, 90)])
 
     # Initialize RecursiveCharacterTextSplitter with adjusted parameters
     recursive_splitter = RecursiveCharacterTextSplitter(
@@ -78,4 +75,4 @@ def hw02_2(q2_pdf):
 
 # Testing
 # print(hw02_1(q1_pdf))
-# print(hw02_2(q2_pdf))
+print(hw02_2(q2_pdf))
