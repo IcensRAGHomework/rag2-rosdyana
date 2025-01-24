@@ -27,17 +27,11 @@ def hw02_2(q2_pdf):
     loader = PyPDFLoader(q2_pdf)
     documents = loader.load()
 
-    # Join all text from all pages
-    full_text = "".join([doc.page_content for doc in documents])
+    # Join all text from all pages with form feed character
+    full_text = "\f".join(doc.page_content for doc in documents)
 
-    # Use regex pattern for separators
-    import re
-
-    separators = [
-        r"第\s*[一二三四五六七八九十百零]+\s*章\s*\n?",
-        r"第\s*\d+\s*條\s*\n?",
-        r"第\s*\d+-\d+\s*條\s*\n?",
-    ]
+    # Define the separators as regex patterns
+    separators = [r"第.+(?:條 *|章 .*)(?:\n|\f)"]
 
     # Initialize RecursiveCharacterTextSplitter with adjusted parameters
     recursive_splitter = RecursiveCharacterTextSplitter(
@@ -46,11 +40,6 @@ def hw02_2(q2_pdf):
 
     # Split the full text
     split_chunks = recursive_splitter.split_text(full_text)
-
-    # Debugging
-    # print(separators)
-    # for i, chunk in enumerate(split_chunks):
-    #     print(f"=> Chunk # {i + 1}\n=> Length: {len(chunk)}\n\n {chunk}\n")
 
     return len(split_chunks)
 
